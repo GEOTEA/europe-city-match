@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#132a3a" />
+  <meta name="description" content="12개의 취향 질문으로 나와 잘 맞는 유럽 도시를 찾아보세요." />
+  <title>나와 잘 맞는 유럽 도시는?</title>
+  <link rel="preconnect" href="https://ko.wikipedia.org" />
+  <link rel="preconnect" href="https://upload.wikimedia.org" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main id="app">
+    <section class="screen start-screen active" id="startScreen" aria-labelledby="appTitle">
+      <div class="europe-map" aria-hidden="true">EUROPE</div>
+      <div class="start-content">
+        <p class="eyebrow">EUROPE CITY MATCH</p>
+        <h1 id="appTitle">나와 잘 맞는<br /><em>유럽의 도시</em>는?</h1>
+        <p class="intro">여행과 생활에 관한 12가지 선택으로<br class="mobile-break" /> 나의 도시 취향을 발견해 보세요.</p>
+        <button class="primary-button" id="startButton">검사 시작하기 <span aria-hidden="true">→</span></button>
+        <p class="disclaimer">개인의 취향을 바탕으로 한 교육용 추천입니다.</p>
+      </div>
+    </section>
+
+    <section class="screen quiz-screen" id="quizScreen" aria-live="polite">
+      <header class="quiz-header">
+        <button class="icon-button" id="backButton" aria-label="이전 문항">←</button>
+        <div class="progress-wrap">
+          <div class="progress-text"><span id="questionNumber">01</span><span>/ 12</span></div>
+          <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+        </div>
+        <button class="icon-button" id="homeButton" aria-label="처음으로">⌂</button>
+      </header>
+      <div class="quiz-card">
+        <p class="question-category" id="questionCategory"></p>
+        <h2 id="questionText"></h2>
+        <div class="options" id="options" role="group" aria-labelledby="questionText"></div>
+      </div>
+    </section>
+
+    <section class="screen loading-screen" id="loadingScreen" aria-live="polite">
+      <div class="compass"><span></span></div>
+      <p class="eyebrow">ANALYZING</p>
+      <h2>당신의 도시를<br />찾고 있어요</h2>
+      <p id="loadingCaption">취향의 방향을 살펴보는 중...</p>
+    </section>
+
+    <section class="screen result-screen" id="resultScreen">
+      <div class="result-shell">
+        <article class="result-card" id="resultCard">
+          <div class="result-photo" id="resultPhoto">
+            <img id="cityImage" alt="" crossorigin="anonymous" />
+            <div class="photo-shade"></div>
+            <div class="result-heading">
+              <p>당신과 잘 맞는 유럽 도시는</p>
+              <h2 id="cityName"></h2>
+              <span id="countryName"></span>
+            </div>
+          </div>
+          <div class="result-content">
+            <div class="match-row"><span id="cityType"></span><strong><b id="matchScore"></b>% MATCH</strong></div>
+            <h3 id="personalityTitle"></h3>
+            <p class="description" id="personalityDescription"></p>
+            <div class="traits" id="traits"></div>
+            <div class="location-box">
+              <div class="location-title"><span>도시의 위치</span><strong id="locationLabel"></strong></div>
+              <div class="europe-location-map" role="img" aria-label="유럽 백지도에서 도시 위치 표시">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Europe_blank_map.svg/960px-Europe_blank_map.svg.png" alt="유럽 백지도" crossorigin="anonymous" />
+                <span class="map-pulse" id="mapMarker" aria-hidden="true"></span>
+              </div>
+              <p class="map-credit">백지도: Wikimedia Commons · Public Domain</p>
+            </div>
+            <div class="textbook-box">
+              <span>교과서 속 도시</span>
+              <p id="textbookDescription"></p>
+            </div>
+            <div class="similar"><span>함께 잘 맞는 도시</span><strong id="similarCities"></strong></div>
+            <p class="photo-credit" id="photoCredit"></p>
+          </div>
+        </article>
+        <div class="result-actions">
+          <button class="action-button save" id="saveButton"><span aria-hidden="true">↓</span> 결과 이미지 저장</button>
+          <button class="action-button" id="shareButton"><span aria-hidden="true">↗</span> 결과 공유하기</button>
+          <button class="restart-button" id="restartButton">다시 검사하기</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
