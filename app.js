@@ -37,7 +37,7 @@ const cities = [
 ];
 
 const cityMapPositions={
-  reykjavik:[16,24],london:[32,45],paris:[36,52],nice:[40,63],madrid:[26,69],barcelona:[34,67],geneva:[40,58],brussels:[37,48],rome:[50,67],essen:[41,46],bilbao:[28,60],manchester:[30,42],sophia:[42,62],oulu:[60,19],kista:[54,31],freiburg:[41,55],copenhagen:[47,39],malmo:[49,40]
+  reykjavik:[11,24],london:[22,52],paris:[26,58],nice:[33,69],madrid:[18,76],barcelona:[28,75],geneva:[33,66],brussels:[28,56],rome:[43,77],essen:[34,55],bilbao:[20,70],manchester:[20,49],sophia:[33,69],oulu:[54,24],kista:[48,39],freiburg:[34,63],copenhagen:[40,46],malmo:[40,48]
 };
 
 const state={current:0,answers:Array(questions.length).fill(null),scores:null,ranked:[],result:null};
