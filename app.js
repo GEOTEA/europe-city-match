@@ -37,7 +37,7 @@ const cities = [
 ];
 
 const cityMapPositions={
-  reykjavik:[10,23],london:[31,46],paris:[35,52],nice:[39,65],madrid:[26,70],barcelona:[34,68],geneva:[39,60],brussels:[36,48],rome:[49,68],essen:[40,46],bilbao:[26,61],manchester:[29,41],sophia:[42,64],oulu:[60,20],kista:[54,34],freiburg:[40,56],copenhagen:[47,39],malmo:[49,40]
+  reykjavik:[16,24],london:[32,45],paris:[36,52],nice:[40,63],madrid:[26,69],barcelona:[34,67],geneva:[40,58],brussels:[37,48],rome:[50,67],essen:[41,46],bilbao:[28,60],manchester:[30,42],sophia:[42,62],oulu:[60,19],kista:[54,31],freiburg:[41,55],copenhagen:[47,39],malmo:[49,40]
 };
 
 const state={current:0,answers:Array(questions.length).fill(null),scores:null,ranked:[],result:null};
@@ -86,8 +86,9 @@ async function renderResult(){
   const city=state.result;const score=Math.max(62,Math.min(97,Math.round(city.raw)));
   $('#cityName').textContent=city.name;$('#countryName').textContent=city.country;$('#cityType').textContent=city.type;$('#matchScore').textContent=score;
   $('#personalityTitle').textContent=`“${city.title}”`;$('#personalityDescription').textContent=city.desc;$('#textbookDescription').textContent=city.book;
-  $('#similarCities').textContent=state.ranked.slice(1,3).map(x=>x.name).join(' · ');
-  $('#locationLabel').textContent=`${city.country} · ${city.name}`;
+  const countryOnly=value=>value.split(' · ')[0];
+  $('#similarCities').innerHTML=state.ranked.slice(1,3).map(x=>`<span class="similar-city"><b>${x.name}</b><small>${countryOnly(x.country)}</small></span>`).join('');
+  $('#locationCity').textContent=city.name;$('#locationCountry').textContent=countryOnly(city.country);
   const position=cityMapPositions[city.id]||[50,50];
   $('#mapMarker').style.left=`${position[0]}%`;$('#mapMarker').style.top=`${position[1]}%`;
   const traitData=axes.map((a,i)=>({a,value:state.scores[a],target:city.v[i]})).sort((x,y)=>Math.abs(y.value-3)-Math.abs(x.value-3)).slice(0,3);
@@ -111,8 +112,8 @@ async function makeResultImage(){
   ctx.fillStyle='#fff';roundedRect(ctx,42,590,996,704,34);ctx.fillStyle='#1677a8';ctx.font='800 23px "Noto Sans KR"';ctx.fillText(city.type,80,660);ctx.textAlign='right';ctx.fillStyle='#b67605';ctx.fillText(`${Math.max(62,Math.min(97,Math.round(city.raw)))}% MATCH`,1000,660);ctx.textAlign='left';
   ctx.fillStyle='#17242d';ctx.font='700 42px "Gowun Batang"';ctx.fillText(`“${city.title}”`,80,735);ctx.fillStyle='#53616a';ctx.font='400 26px "Noto Sans KR"';let y=wrapText(ctx,city.desc,80,790,920,44,3);
   y+=25;ctx.fillStyle='#eef4f4';roundedRect(ctx,70,y,940,126,18);ctx.fillStyle='#1677a8';ctx.font='800 21px "Noto Sans KR"';ctx.fillText('교과서 속 도시',98,y+38);ctx.fillStyle='#3e505a';ctx.font='400 23px "Noto Sans KR"';wrapText(ctx,city.book,98,y+78,870,35,2);
-  ctx.fillStyle='#78878d';ctx.font='500 20px "Noto Sans KR"';ctx.fillText(`함께 잘 맞는 도시  ${state.ranked.slice(1,3).map(x=>x.name).join(' · ')}`,80,1228);
-  ctx.textAlign='center';ctx.fillStyle='rgba(255,255,255,.72)';ctx.font='600 21px "Noto Sans KR"';ctx.fillText('나와 잘 맞는 유럽 도시는?',540,1320);
+  ctx.fillStyle='#78878d';ctx.font='500 20px "Noto Sans KR"';ctx.fillText(`함께 잘 맞는 도시  ${state.ranked.slice(1,3).map(x=>`${x.name}(${x.country.split(' · ')[0]})`).join(' · ')}`,80,1228);
+  ctx.textAlign='center';ctx.fillStyle='rgba(255,255,255,.72)';ctx.font='600 21px "Noto Sans KR"';ctx.fillText('나와 잘 맞는 유럽 도시는?',540,1306);ctx.fillStyle='rgba(255,255,255,.48)';ctx.font='400 15px "Noto Sans KR"';ctx.fillText('© 2026 이인규 선생님(덕계중). All rights reserved.',540,1335);
   return new Promise((resolve,reject)=>{try{canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('blob')),'image/png',.95)}catch(e){reject(e)}});
 }
 async function saveImage(){try{const blob=await makeResultImage();const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`나와_잘_맞는_도시_${state.result.name}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('결과 이미지를 저장했어요.')}catch{toast('사진 보호 설정으로 저장할 수 없어요. 화면을 캡처해 주세요.')}}

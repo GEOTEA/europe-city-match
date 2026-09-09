@@ -20,6 +20,7 @@
         <p class="intro">여행과 생활에 관한 12가지 선택으로<br class="mobile-break" /> 나의 도시 취향을 발견해 보세요.</p>
         <button class="primary-button" id="startButton">검사 시작하기 <span aria-hidden="true">→</span></button>
         <p class="disclaimer">개인의 취향을 바탕으로 한 교육용 추천입니다.</p>
+        <p class="copyright start-copyright">© 2026 이인규 선생님(덕계중). All rights reserved.</p>
       </div>
     </section>
 
@@ -30,7 +31,7 @@
           <div class="progress-text"><span id="questionNumber">01</span><span>/ 12</span></div>
           <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
         </div>
-        <button class="icon-button" id="homeButton" aria-label="처음으로">⌂</button>
+        <button class="icon-button" id="homeButton" aria-label="처음으로"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 3l8.5 7.5v9.25a1.25 1.25 0 0 1-1.25 1.25H4.75a1.25 1.25 0 0 1-1.25-1.25Z"/><path d="M9 21v-7h6v7"/></svg></button>
       </header>
       <div class="quiz-card">
         <p class="question-category" id="questionCategory"></p>
@@ -64,12 +65,12 @@
             <p class="description" id="personalityDescription"></p>
             <div class="traits" id="traits"></div>
             <div class="location-box">
-              <div class="location-title"><span>도시의 위치</span><strong id="locationLabel"></strong></div>
+              <div class="location-title"><span>도시의 위치</span><span class="location-place"><strong id="locationCity"></strong><small id="locationCountry"></small></span></div>
               <div class="europe-location-map" role="img" aria-label="유럽 백지도에서 도시 위치 표시">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Europe_blank_map.svg/960px-Europe_blank_map.svg.png" alt="유럽 백지도" crossorigin="anonymous" />
+                <span class="map-land" aria-hidden="true"></span>
                 <span class="map-pulse" id="mapMarker" aria-hidden="true"></span>
               </div>
-              <p class="map-credit">백지도: Wikimedia Commons · Public Domain</p>
+              <p class="map-credit">백지도: Wikimedia Commons · CC BY-SA 3.0</p>
             </div>
             <div class="textbook-box">
               <span>교과서 속 도시</span>
@@ -84,6 +85,7 @@
           <button class="action-button" id="shareButton"><span aria-hidden="true">↗</span> 결과 공유하기</button>
           <button class="restart-button" id="restartButton">다시 검사하기</button>
         </div>
+        <p class="copyright result-copyright">© 2026 이인규 선생님(덕계중). All rights reserved.</p>
       </div>
     </section>
   </main>
