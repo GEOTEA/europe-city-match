@@ -36,8 +36,8 @@ const cities = [
   {id:'malmo',name:'말뫼',country:'스웨덴',wiki:'Malmö',v:[3,2,4,4,5,2],type:'친환경 도시 · 전환 도시',title:'다양성과 친환경 변화를 이끄는 실천가',desc:'다양한 배경을 가진 사람들과 어울리며 더 지속가능한 공동체를 직접 만들어 가는 성향입니다.',book:'과거 산업 지역을 친환경 주거 지역으로 전환하고 재생 에너지와 지속가능한 도시 개발을 추진했습니다.'}
 ];
 
-const cityMapPositions={
-  reykjavik:[11,24],london:[22,52],paris:[26,58],nice:[33,69],madrid:[18,76],barcelona:[28,75],geneva:[33,66],brussels:[28,56],rome:[43,77],essen:[34,55],bilbao:[20,70],manchester:[20,49],sophia:[33,69],oulu:[54,24],kista:[48,39],freiburg:[34,63],copenhagen:[40,46],malmo:[40,48]
+const cityCoordinates={
+  reykjavik:[64.1466,-21.9426],london:[51.5074,-0.1278],paris:[48.8566,2.3522],nice:[43.7102,7.262],madrid:[40.4168,-3.7038],barcelona:[41.3874,2.1686],geneva:[46.2044,6.1432],brussels:[50.8503,4.3517],rome:[41.9028,12.4964],essen:[51.4556,7.0116],bilbao:[43.263,-2.935],manchester:[53.4808,-2.2426],sophia:[43.6156,7.055],oulu:[65.0121,25.4651],kista:[59.403,17.944],freiburg:[47.999,7.842],copenhagen:[55.6761,12.5683],malmo:[55.605,13.0038]
 };
 
 const state={current:0,answers:Array(questions.length).fill(null),scores:null,ranked:[],result:null};
@@ -89,7 +89,8 @@ async function renderResult(){
   const countryOnly=value=>value.split(' · ')[0];
   $('#similarCities').innerHTML=state.ranked.slice(1,3).map(x=>`<span class="similar-city"><b>${x.name}</b><small>${countryOnly(x.country)}</small></span>`).join('');
   $('#locationCity').textContent=city.name;$('#locationCountry').textContent=countryOnly(city.country);
-  const position=cityMapPositions[city.id]||[50,50];
+  const [lat,lon]=cityCoordinates[city.id]||[53,10];
+  const position=[((lon+25)/70)*100,((72-lat)/38)*100];
   $('#mapMarker').style.left=`${position[0]}%`;$('#mapMarker').style.top=`${position[1]}%`;
   const traitData=axes.map((a,i)=>({a,value:state.scores[a],target:city.v[i]})).sort((x,y)=>Math.abs(y.value-3)-Math.abs(x.value-3)).slice(0,3);
   const labels={A:['여유로움','활동 에너지'],H:['현대 감각','문화 감성'],I:['안정 지향','혁신 성향'],G:['지역 친밀','세계 연결'],E:['도시 편의','친환경성'],C:['북쪽 풍경','따뜻한 햇살']};
